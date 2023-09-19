@@ -21,7 +21,7 @@ const MessageComponent = () => {
 
   return (
     <div>
-      <h1>Message from the Backend:</h1>
+      <h1>---Message from the Backend---</h1>
       <p>{message}</p>
     </div>
   );
