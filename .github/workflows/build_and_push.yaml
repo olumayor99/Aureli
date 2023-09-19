@@ -19,12 +19,12 @@ jobs:
 
       - name: Build Frontend Docker image
         run: |
-          cd frontend-aureli/
+          cd frontend/
           docker build -t olumayor99/aureli-frontend .
 
       - name: Build Backend Docker image
         run: |
-          cd backend-aureli/
+          cd backend/
           docker build -t olumayor99/aureli-backend .
 
       - name: Log in to Docker Hub
