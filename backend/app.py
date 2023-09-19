@@ -8,7 +8,7 @@ CORS(app)
 
 @app.route("/api/message", methods=["GET"])
 def get_message():
-    message = "This is a message from the backend"
+    message = "This is a simple message from the backend"
     return jsonify(message=message)
 
 
