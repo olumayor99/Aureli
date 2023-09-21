@@ -34,3 +34,21 @@ helm lint yolo_app
 helm install YoloRelease yolo_app
 
 # Delete A record and TXT record
+
+
+eksctl create iamserviceaccount \
+  --cluster=Aureli-EKS \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --role-name AmazonEKSLoadBalancerControllerRole \
+  --attach-policy-arn=arn:aws:iam::573763289578:policy/AWSLoadBalancerControllerIAMPolicy \
+  --override-existing-serviceaccounts \
+  --approve
+
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=Aureli-EKS \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller 
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/aws/deploy.yaml

@@ -33,11 +33,9 @@ backend:
 # Frontend Service
 frontendService:
   name: frontend-service
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: drayco.com
   selector:
     app: frontend
-  type: LoadBalancer
+  type: NodePort
 
 # Backend Service
 backendService:
@@ -49,20 +47,20 @@ backendService:
 # Frontend Horizontal Pod Autoscaler
 frontendHPA:
   minReplicas: 2
-  maxReplicas: 100
-  averageUtilization: 10
+  maxReplicas: 5
+  averageUtilization: 90
 
 # Backendend Horizontal Pod Autoscaler
 backendHPA:
   minReplicas: 2
-  maxReplicas: 100
-  averageUtilization: 10
+  maxReplicas: 5
+  averageUtilization: 90
 
 # ExternalDNS
 externalDNS:
   domainFilter: drayco.com
-  txtOwnerID: Z046868710106H7HIXYYF
+  txtOwnerID: Z00354553BB8KX3K62IM5
   
 # Frontend Configmap
 frontendCMData:
-  BACKEND_URL: http://backend-service/api/message
+  REACT_APP_BACKEND_URL: /api/message

@@ -92,3 +92,19 @@ resource "aws_autoscaling_group_tag" "nodegroup2" {
     propagate_at_launch = true
   }
 }
+
+resource "null_resource" "ebs_csi_driver_install" {
+  provisioner "local-exec" {
+    command = "aws eks create-addon --cluster-name ${module.eks.cluster_name} --addon-name aws-ebs-csi-driver --service-account-role-arn ${aws_iam_role.ebs_csi_controller_sa.arn}"
+  }
+  
+  depends_on = [module.eks.eks_managed_node_groups, aws_iam_role.ebs_csi_controller_sa]
+}
+
+resource "null_resource" "update_kubeconfig" {
+  provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --region ${var.aws_region} --name ${module.eks.cluster_name}"
+  }
+  
+  depends_on = [module.eks.eks_managed_node_groups]
+}

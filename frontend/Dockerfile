@@ -1,21 +1,15 @@
-FROM node:20 as build
+FROM node:14-alpine AS development
+
+ENV NODE_ENV development
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json .
 
 RUN npm install
 
 COPY . .
 
-RUN npm run build
-
-FROM node:20-slim
-
-WORKDIR /app
-
-COPY --from=build /app/build ./build
-
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD [ "npm", "start" ]
