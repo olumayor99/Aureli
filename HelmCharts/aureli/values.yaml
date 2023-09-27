@@ -35,7 +35,7 @@ frontendService:
   name: frontend-service
   selector:
     app: frontend
-  type: NodePort
+  type: ClusterIP
 
 # Backend Service
 backendService:

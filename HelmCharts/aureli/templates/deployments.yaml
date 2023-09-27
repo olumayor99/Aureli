@@ -23,11 +23,6 @@ spec:
           ports:
             - name: backend
               containerPort: 5000
-          resources:
-            limits:
-              cpu: 512m
-            requests:
-              cpu: 256m
 
           securityContext:
             allowPrivilegeEscalation: false
@@ -67,11 +62,7 @@ spec:
           ports:
             - name: frontend
               containerPort: 3000
-          resources:
-            limits:
-              cpu: 512m
-            requests:
-              cpu: 128m
+              
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true

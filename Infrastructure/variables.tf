@@ -1,6 +1,6 @@
 variable "prefix" {
   type= string
-  default     = "Aureli"
+  default     = "Aurelii"
   description = "Prefix resource names"
 }
 variable "aws_region" {
@@ -18,4 +18,16 @@ variable "domain_name" {
    default= "drayco.com" # Replace with your own domain name
    description= "domain name"
 
+}
+
+variable "istio_chart_url" {
+   type= string
+   default= "https://istio-release.storage.googleapis.com/charts"
+   description= "Istio Chart URL"
+}
+
+variable "istio_chart_version" {
+   type= string
+   default= "1.18.1"
+   description= "Istio Chart Version"
 }

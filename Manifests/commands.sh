@@ -52,3 +52,16 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.name=aws-load-balancer-controller 
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/aws/deploy.yaml
+
+istioctl install --set profile=demo -y
+
+kubectl label namespace default istio-injection=enabled
+
+aws eks describe-addon --cluster-name Aureli-EKS --addon-name vpc-cni --query addon.addonVersion --output text
+
+aws eks create-addon --cluster-name Aureli-EKS --addon-name vpc-cni --addon-version v1.15.0-eksbuild.2 \
+    --service-account-role-arn arn:aws:iam::573763289578:role/Aureli-eks_cni_driver_addon_sa
+
+kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
+  { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v0.8.0-rc1" | kubectl apply -f -; }
+
