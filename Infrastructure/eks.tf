@@ -136,3 +136,10 @@ resource "null_resource" "update_kubeconfig" {
   }
   depends_on = [module.eks.eks_managed_node_groups]
 }
+
+resource "null_resource" "istio_ns" {
+  provisioner "local-exec" {
+    command = "kubectl create ns istio-system"
+  }
+  depends_on = [resource.null_resource.update_kubeconfig]
+}

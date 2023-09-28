@@ -1,6 +1,6 @@
 variable "prefix" {
   type= string
-  default     = "Aurelii"
+  default     = "Aureliii"
   description = "Prefix resource names"
 }
 variable "aws_region" {

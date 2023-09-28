@@ -16,7 +16,7 @@ module "eks_blueprints_addons" {
       version    = var.istio_chart_version
       repository = var.istio_chart_url
       name       = "istio-base"
-      namespace  = kubernetes_namespace_v1.istio_system.metadata[0].name
+      namespace  = "istio-system"
     }
 
     istiod = {
@@ -24,7 +24,7 @@ module "eks_blueprints_addons" {
       version    = var.istio_chart_version
       repository = var.istio_chart_url
       name       = "istiod"
-      namespace  = kubernetes_namespace_v1.istio_system.metadata[0].name
+      namespace  = "istio-system"
 
       set = [
         {
@@ -39,7 +39,7 @@ module "eks_blueprints_addons" {
       version          = var.istio_chart_version
       repository       = var.istio_chart_url
       name             = "istio-ingress"
-      namespace  = kubernetes_namespace_v1.istio_system.metadata[0].name
+      namespace  = "istio-system"
       create_namespace = true
 
       values = [
@@ -60,6 +60,7 @@ module "eks_blueprints_addons" {
       ]
     }
   }
+  depends_on = [resource.null_resource.istio_ns]
 }
 
 resource "null_resource" "istio_addons" {
