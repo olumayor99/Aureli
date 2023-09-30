@@ -2,23 +2,23 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.16"
 
-  cluster_name = "${var.prefix}-EKS"
+  cluster_name    = "${var.prefix}-EKS"
   cluster_version = "1.28"
 
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
 
-  cluster_enabled_log_types       = ["api", "controllerManager", "scheduler"]
+  cluster_enabled_log_types = ["api", "controllerManager", "scheduler"]
 
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
+  vpc_id                   = module.vpc.vpc_id
+  subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
 
-  enable_irsa = true  # Automatically provisions an OIDC provider. This is preferred to provisioning it separately.
+  enable_irsa = true # Automatically provisions an OIDC provider. This is preferred to provisioning it separately.
 
   eks_managed_node_group_defaults = {
-    ami_type = "AL2_x86_64"  # Should change this to a custom AMI via Packer if OS baking is required.
+    ami_type  = "AL2_x86_64" # Should change this to a custom AMI via Packer if OS baking is required.
     disk_size = 50
   }
 
@@ -33,13 +33,13 @@ module "eks" {
 
       labels = {
         Environment = "dev"
-        Project = "aureli"
-        Type = "on-demand"
+        Project     = "aureli"
+        Type        = "on-demand"
       }
 
       tags = {
-        "k8s.io/cluster-autoscaler/enabled"                  = "true"
-        "k8s.io/cluster-autoscaler/${var.prefix}-EKS"        = "owned"
+        "k8s.io/cluster-autoscaler/enabled"           = "true"
+        "k8s.io/cluster-autoscaler/${var.prefix}-EKS" = "owned"
       }
     }
 
@@ -53,13 +53,13 @@ module "eks" {
 
       labels = {
         Environment = "dev"
-        Project = "aureli"
-        Type = "spot"
+        Project     = "aureli"
+        Type        = "spot"
       }
 
       tags = {
-        "k8s.io/cluster-autoscaler/enabled"                       = "true"
-        "k8s.io/cluster-autoscaler/${var.prefix}-EKS"        = "owned"
+        "k8s.io/cluster-autoscaler/enabled"           = "true"
+        "k8s.io/cluster-autoscaler/${var.prefix}-EKS" = "owned"
       }
     }
   }

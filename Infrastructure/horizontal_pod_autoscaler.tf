@@ -1,18 +1,18 @@
 resource "kubernetes_horizontal_pod_autoscaler_v2" "frontend" {
   metadata {
-    name = "frontend"
+    name      = "frontend"
     namespace = "default"
   }
 
   spec {
-    min_replicas = 2
-    max_replicas = 5
+    min_replicas                      = 2
+    max_replicas                      = 5
     target_cpu_utilization_percentage = 50
 
     scale_target_ref {
       api_version = "apps/v1"
-      kind = "Deployment"
-      name = "frontend"
+      kind        = "Deployment"
+      name        = "frontend"
     }
   }
 
@@ -21,19 +21,19 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "frontend" {
 
 resource "kubernetes_horizontal_pod_autoscaler_v2" "backend" {
   metadata {
-    name = "backend"
+    name      = "backend"
     namespace = "default"
   }
 
   spec {
-    min_replicas = 2
-    max_replicas = 5
+    min_replicas                      = 2
+    max_replicas                      = 5
     target_cpu_utilization_percentage = 50
 
     scale_target_ref {
       api_version = "apps/v1"
-      kind = "Deployment"
-      name = "backend"
+      kind        = "Deployment"
+      name        = "backend"
     }
   }
 

@@ -40,16 +40,16 @@ output "cluster_security_group_id" {
 }
 
 output "oidc_issuer" {
-  value = module.eks.oidc_provider
+  value       = module.eks.oidc_provider
   description = "AWS IAM role ARN for EKS Cluster Autoscaler"
 }
 
 output "domain_name" {
-  value = var.domain_name
+  value       = var.domain_name
   description = "Hosted Zone name"
 }
 
 output "hosted_zone_id" {
-  value = aws_route53_zone.ingress.zone_id
+  value       = aws_route53_zone.ingress.zone_id
   description = "Hosted Zone ID"
 }

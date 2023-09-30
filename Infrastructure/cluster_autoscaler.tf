@@ -37,9 +37,9 @@ resource "aws_iam_policy" "cluster_autoscaler" {
       },
       {
         Action = [
-            "autoscaling:SetDesiredCapacity",
-            "autoscaling:TerminateInstanceInAutoScalingGroup",
-            "autoscaling:UpdateAutoScalingGroup",
+          "autoscaling:SetDesiredCapacity",
+          "autoscaling:TerminateInstanceInAutoScalingGroup",
+          "autoscaling:UpdateAutoScalingGroup",
         ]
         Effect   = "Allow"
         Resource = "*"
@@ -59,12 +59,12 @@ resource "aws_iam_role_policy_attachment" "cluster_autoscaler" {
 }
 
 resource "helm_release" "cluster_autoscaler" {
-  name             = "cluster-autoscaler"
-  namespace        = "kube-system"
-  repository       = "https://kubernetes.github.io/autoscaler"
-  chart            = "cluster-autoscaler"
+  name       = "cluster-autoscaler"
+  namespace  = "kube-system"
+  repository = "https://kubernetes.github.io/autoscaler"
+  chart      = "cluster-autoscaler"
   #version          = "9.29.1"
-  version    = var.cluster_autoscaler_helm_version
+  version = var.cluster_autoscaler_helm_version
 
   set {
     name  = "awsRegion"

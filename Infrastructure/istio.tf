@@ -2,39 +2,39 @@ resource "null_resource" "istio_addons" {
   provisioner "local-exec" {
     command = "sh addon.sh"
   }
-  depends_on = [module.eks_blueprints_addons]
+  depends_on = [module.eks_blueprints_addons, helm_release.litmus_chaos]
 }
 
 resource "helm_release" "istio-base" {
-  chart      = "base"
-  version    = var.istio_chart_version
-  repository = var.istio_chart_url
-  name       = "istio-base"
-  namespace  = kubernetes_namespace_v1.istio_ns.metadata[0].name
+  name             = "istio-base"
+  repository       = var.istio_chart_url
+  chart            = "base"
+  version          = var.istio_chart_version
+  namespace        = "istio-system"
+  create_namespace = true
 }
 
 resource "helm_release" "istiod" {
+  name       = "istiod"
+  repository = var.istio_chart_url
   chart      = "istiod"
   version    = var.istio_chart_version
-  repository = var.istio_chart_url
-  name       = "istiod"
-  namespace  = kubernetes_namespace_v1.istio_ns.metadata[0].name
+  namespace  = "istio-system"
 
   set {
     name  = "meshConfig.accessLogFile"
     value = "/dev/stdout"
-    }
+  }
 
-  depends_on       = [helm_release.istio-base]
+  depends_on = [helm_release.istio-base]
 }
 
 resource "helm_release" "istio-ingress" {
-  chart            = "gateway"
-  version          = var.istio_chart_version
-  repository       = var.istio_chart_url
-  name             = "istio-ingress"
-  namespace  = kubernetes_namespace_v1.istio_ns.metadata[0].name
-  create_namespace = true
+  name       = "istio-ingress"
+  repository = var.istio_chart_url
+  chart      = "gateway"
+  version    = var.istio_chart_version
+  namespace  = "istio-system"
 
   values = [
     yamlencode(
