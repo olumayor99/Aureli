@@ -8,6 +8,13 @@ variable "aws_region" {
   default     = "us-east-1"
   description = "VPC region"
 }
+
+variable "env" {
+  type= string
+  default     = "Dev"
+  description = "Environment"
+}
+
 variable "vpc_cidr" {
   type= string
   default     = "10.50.0.0/16"
@@ -30,4 +37,10 @@ variable "istio_chart_version" {
    type= string
    default= "1.18.1"
    description= "Istio Chart Version"
+}
+
+variable "cluster_autoscaler_helm_version" {
+   type= string
+   default= "9.29.3"
+   description= "Cluster Autoscaler Chart Version"
 }

@@ -64,4 +64,3 @@ aws eks create-addon --cluster-name Aureli-EKS --addon-name vpc-cni --addon-vers
 
 kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || \
   { kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v0.8.0-rc1" | kubectl apply -f -; }
-

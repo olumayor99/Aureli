@@ -304,3 +304,55 @@ spec:
   trafficPolicy:
     tls:
       mode: DISABLE
+
+---
+# LITMUS
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: litmus-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-litmus
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: litmus-vs
+  namespace: istio-system
+spec:
+  hosts:
+    #- "*"
+    - litmus-chaos-frontend-service.litmus.svc.cluster.local
+  gateways:
+  - litmus-gateway
+  http:
+    - match:
+      - uri:
+          prefix: /login
+      route:
+      - destination:
+          host: litmus-chaos-frontend-service.litmus.svc.cluster.local
+          port:
+            number: 9091
+        weight: 100
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: litmus-dr
+  namespace: istio-system
+spec:
+  host: litmus-chaos-frontend-service.litmus.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE

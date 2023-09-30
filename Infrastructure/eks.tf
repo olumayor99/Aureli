@@ -3,20 +3,13 @@ module "eks" {
   version = "~> 19.16"
 
   cluster_name = "${var.prefix}-EKS"
-  cluster_version = "1.27"
+  cluster_version = "1.28"
 
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
 
   cluster_enabled_log_types       = ["api", "controllerManager", "scheduler"]
 
-  cluster_addons = {
-    coredns    = {}
-    kube-proxy = {}
-    vpc-cni = {
-      preserve = true
-    }
-  }
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
@@ -122,24 +115,9 @@ resource "aws_autoscaling_group_tag" "nodegroup2" {
   }
 }
 
-resource "null_resource" "ebs_csi_driver_install" {
-  provisioner "local-exec" {
-    command = "aws eks create-addon --cluster-name ${module.eks.cluster_name} --addon-name aws-ebs-csi-driver --service-account-role-arn ${aws_iam_role.ebs_csi_controller_sa.arn}"
-  }
-  
-  depends_on = [module.eks.eks_managed_node_groups, aws_iam_role.ebs_csi_controller_sa]
-}
-
 resource "null_resource" "update_kubeconfig" {
   provisioner "local-exec" {
     command = "aws eks update-kubeconfig --region ${var.aws_region} --name ${module.eks.cluster_name}"
   }
   depends_on = [module.eks.eks_managed_node_groups]
-}
-
-resource "null_resource" "istio_ns" {
-  provisioner "local-exec" {
-    command = "kubectl create ns istio-system"
-  }
-  depends_on = [resource.null_resource.update_kubeconfig]
 }

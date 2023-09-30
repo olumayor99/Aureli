@@ -50,6 +50,6 @@ output "domain_name" {
 }
 
 output "hosted_zone_id" {
-  value = aws_route53_zone.ingress-nginx.zone_id
+  value = aws_route53_zone.ingress.zone_id
   description = "Hosted Zone ID"
 }
