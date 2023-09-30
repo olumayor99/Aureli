@@ -34,8 +34,6 @@ module "eks_blueprints_addons" {
   enable_external_dns                   = true
   enable_cert_manager                   = true
   cert_manager_route53_hosted_zone_arns = [resource.aws_route53_zone.ingress.arn]
-
-
-  depends_on = [null_resource.update_kubeconfig]
+  depends_on                            = [null_resource.update_kubeconfig]
 
 }
