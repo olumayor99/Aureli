@@ -1,5 +1,5 @@
-# Aureli
-A React Frontend with a Flask Backend deployed on an EKS Cluster.
+# Aureli (WIP)
+A minimal deployment on an EKS Cluster to configure and test many DevOps tools.
 
 Still a work in progress.
 
