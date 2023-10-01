@@ -2,7 +2,7 @@ resource "null_resource" "istio_addons" {
   provisioner "local-exec" {
     command = "sh addon.sh"
   }
-  depends_on = [module.eks_blueprints_addons, helm_release.litmus_chaos]
+  depends_on = [helm_release.litmus_chaos]
 }
 
 resource "helm_release" "istio-base" {

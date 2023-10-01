@@ -6,4 +6,13 @@ resource "helm_release" "kubecost" {
   namespace        = "kubecost"
   create_namespace = true
   depends_on       = [helm_release.istio-base]
+
+  set {
+    name  = "global.prometheus.enabled"
+    value = "false"
+  }
+  set {
+    name  = "global.grafana.enabled"
+    value = "false"
+  }
 }
