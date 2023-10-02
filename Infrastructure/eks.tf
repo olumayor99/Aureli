@@ -3,7 +3,7 @@ module "eks" {
   version = "~> 19.16"
 
   cluster_name    = "${var.prefix}-EKS"
-  cluster_version = "1.28"
+  cluster_version = "1.27"
 
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
@@ -25,7 +25,7 @@ module "eks" {
   eks_managed_node_groups = {
     general = {
       min_size     = 1
-      max_size     = 3
+      max_size     = 4
       desired_size = 1
 
       instance_types = ["t3.medium"]
@@ -45,7 +45,7 @@ module "eks" {
 
     spot = {
       min_size     = 1
-      max_size     = 3
+      max_size     = 4
       desired_size = 1
 
       instance_types = ["t3.medium"]
