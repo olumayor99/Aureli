@@ -36,4 +36,20 @@ resource "helm_release" "elk-stack" {
   create_namespace = true
 }
 
+resource "helm_release" "fluentd" {
+  name             = "fluentd"
+  repository       = "oci://registry-1.docker.io/bitnamicharts/"
+  chart            = "fluentd"
+  version          = "5.9.5"
+  namespace        = "fluentd"
+  create_namespace = true
+}
 
+resource "helm_release" "falco" {
+  name             = "falco"
+  repository       = "https://falcosecurity.github.io/charts"
+  chart            = "falco"
+  version          = "3.7.1"
+  namespace        = "falco"
+  create_namespace = true
+}
