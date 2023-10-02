@@ -22,7 +22,7 @@ variable "vpc_cidr" {
 }
 variable "domain_name" {
   type        = string
-  default     = "drayco.com" # Replace with your own domain name
+  default     = "w3krypto.com" # Replace with your own domain name
   description = "domain name"
 
 }

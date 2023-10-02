@@ -53,3 +53,7 @@ output "hosted_zone_id" {
   value       = aws_route53_zone.ingress.zone_id
   description = "Hosted Zone ID"
 }
+output "nameservers" {
+  value       = aws_route53_zone.ingress.name_servers
+  description = "Hosted Zone ID"
+}

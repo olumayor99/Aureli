@@ -14,7 +14,7 @@ spec:
       name: http-grafana
       protocol: HTTP
     hosts:
-    - "*"
+    - grafana.w3krypto.com
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -23,7 +23,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - "*"
+    - grafana.w3krypto.com
   gateways:
   - grafana-gateway
   http:
@@ -65,7 +65,7 @@ spec:
       name: http-tracing
       protocol: HTTP
     hosts:
-    - "*"
+    - jaeger.w3krypto.com
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -74,7 +74,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - "*"
+    - jaeger.w3krypto.com
   gateways:
   - tracing-gateway
   http:
@@ -116,7 +116,7 @@ spec:
       name: http-prom
       protocol: HTTP
     hosts:
-    - "*"
+    - prom.w3krypto.com
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -125,7 +125,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - "*"
+    - prom.w3krypto.com
   gateways:
   - prometheus-gateway
   http:
@@ -167,7 +167,7 @@ spec:
       name: http-kiali
       protocol: HTTP
     hosts:
-    - "*"
+    - kiali.w3krypto.com
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -176,7 +176,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - "*"
+    - kiali.w3krypto.com
   gateways:
   - kiali-gateway
   http:
@@ -218,7 +218,7 @@ spec:
       name: http-frontend
       protocol: HTTP
     hosts:
-    - "*"
+    - frontend.w3krypto.com
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -227,7 +227,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - "*"
+    - frontend.w3krypto.com
   gateways:
   - frontend-gateway
   http:
@@ -271,7 +271,7 @@ spec:
       name: http-backend
       protocol: HTTP
     hosts:
-    - "*"
+    - backend.w3krypto.com
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -280,7 +280,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - "*"
+    - backend.w3krypto.com
   gateways:
   - backend-gateway
   http:
@@ -322,7 +322,7 @@ spec:
       name: http-litmus
       protocol: HTTP
     hosts:
-    - "*"
+    - litmus.w3krypto.com
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -331,8 +331,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    #- "*"
-    - litmus-chaos-frontend-service.litmus.svc.cluster.local
+    - litmus.w3krypto.com
   gateways:
   - litmus-gateway
   http:
